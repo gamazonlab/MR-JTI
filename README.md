@@ -6,7 +6,7 @@ Studies of the genetic component of gene expression promise to improve our under
 
 MR-XT-SCAN: Towards a unifying framework for multi-tissue TWAS and Mendelian Randomization.
 
-Dan Zhou, Yi Jiang, Nancy J. Cox, Chunyu Liu, Eric R. Gamazon. 
+Dan Zhou, Yi Jiang, Xue Zhong, Nancy J. Cox, Chunyu Liu, Eric R. Gamazon. 
 
 Software is being maintained by postdoctoral scholar and developer Dan Zhou. 
 
