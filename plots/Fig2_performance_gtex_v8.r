@@ -1,7 +1,7 @@
 
 #-----performance-----v8----cv-----
 
-tpm<-read.table('~/../Dropbox/annotation/GTEx/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct.49',header = T,stringsAsFactors = F)
+tpm<-read.table('~/../Dropbox/data/gtex/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct.49',header = T,stringsAsFactors = F)
 tpm[,1]<-sapply(tpm[,1], function(x) strsplit(x,"[.]")[[1]][1])
 
 main_path=paste0('~/../Dropbox/DansPaper/data/performance/v8/')
@@ -16,7 +16,7 @@ for (i in 1:length(tissue_list)){
   print(tissue_list[i])
   box<-read.table(paste0(main_path,tissue_list[i]),header = T,stringsAsFactors = F)
   box[is.na(box)] <- 0
-  box<-box[which(box[,1] %in% tpm[tpm[,i+2]>0.1,1]),] #median TPM >0.1
+  box<-box[which(box[,1] %in% tpm[tpm[,i+2]>0,1]),] #median TPM >0.1
   #print(colnames(tpm[i+2]))
   
   box$delta_xt<-box$r_xt^2-box$r_st^2
@@ -46,12 +46,13 @@ write.table(output,paste0('~/../Dropbox/DansPaper/data/performance/v8_cv.txt'),q
 
 #-----merge with info-----
 info<-read.table('~/../Dropbox/DansPaper/data/info/gtex_v8_info.txt',header = T,stringsAsFactors = F)
+info<-info[,-4]
 v8<-read.table(paste0('~/../Dropbox/DansPaper/data/performance/v8_cv.txt'),header = T,stringsAsFactors = F)
 v8<-merge(info,v8,by=1)
 
 
 #-----capture-----
-tpm<-read.table('~/../Dropbox/annotation/GTEx/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct.49',header = T,stringsAsFactors = F)
+tpm<-read.table('~/../Dropbox/data/gtex/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct.49',header = T,stringsAsFactors = F)
 tpm[,1]<-sapply(tpm[,1], function(x) strsplit(x,"[.]")[[1]][1])
 
 
@@ -65,7 +66,7 @@ for (i in 1:length(tissue_list)){
   print(tissue_list[i])
   box<-read.table(paste0(main_path,tissue_list[i]),header = T,stringsAsFactors = F)
   box[is.na(box)] <- 0
-  box<-box[which(box[,1] %in% tpm[tpm[,i+2]>0.1,1]),]
+  box<-box[which(box[,1] %in% tpm[tpm[,i+2]>0,1]),]
   #print(colnames(tpm[i+2]))
   
   box$xt<-ifelse((box$r_xt>0.1 & box$p_xt<0.05),1,0)
@@ -80,6 +81,7 @@ v8<-merge(v8,capture,by=1)
 v8<-v8[order(v8$n,decreasing = T),]
 #v8<-v8[order(v8$tissue,decreasing = T),]
 
+write.table(v8,paste0('~/../Dropbox/DansPaper/data/performance/v8_info.txt'),quote = F,row.names = F,sep='\t')
 
 #-----------------------------------------------------------------
 
@@ -139,7 +141,7 @@ par(mai=c(1,0.8,0.1,0.3))
 par(mgp=c(2.5,1,0))
 
 plot(-100,-100,xlim=c(0,max(v8$n)*1.1),ylim=c(0,max(v8$n_increase_xt)*1.1),yaxt='n',las=1,xlab='Sample size for each tissue',ylab=' ',cex.lab=1.5,cex.axis=1.5,bty='l')
-title(ylab = 'Increase in the propotion of iGenes (¦¤ipiG)', mgp = c(5, 1, 0),cex.lab=1.5)
+title(ylab = 'Increase in the propotion of iGenes (Î”piG)', mgp = c(5, 1, 0),cex.lab=1.5)
 
 axis(2,at=seq(0,3,0.1),label=paste0(seq(0,3,0.1)*100,'%'),las=1,cex.axis=1.5) 
 
@@ -194,3 +196,26 @@ for (i in 1:length(tissue_list)){
 }
 
 dev.off()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
