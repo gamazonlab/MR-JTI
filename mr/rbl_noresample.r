@@ -1,33 +1,24 @@
 
 args<-as.numeric(commandArgs(TRUE))  #subjobs
 
-model='xt' #XT-SCAN model
+model='xt' #using XT-SCAN model
 options(digits = 4)
 tissue='Liver'
 nf=5 #number of fold for cross-validation
-prune=0.2  #LD pruning r2 0.2
+prune=0.2  #LD pruning r2 cutoff
 
 library("glmnet")
+library('HDCI')  #arXiv:1706.02150 [stat.ME]
 #library("mvtnorm")
-library('HDCI')
 #library('selectiveInference')
 #library('hdi')
 
 
 #---function Residual Bootstrap LASSO---
-RB_LASSO<-function (x, y, B = 500, alpha = 0.05, nfolds = 5, foldid, cv.OLS = FALSE, tau = 0, parallel = FALSE, standardize = TRUE, intercept = TRUE, parallel.boot = FALSE, ncores.boot = 1, ...) {
-  # 
-  #   B = 500  #no of bootstrap
-  #   alpha = 0.05  #95%CI
-  #   nfolds = 5  #cv nfolds
-  #   cv.OLS = FALSE
-  #   tau = 0
-  #   parallel = FALSE
-  #   standardize = TRUE
-  #   intercept = TRUE
-  #   parallel.boot = FALSE
-  #   ncores.boot = 1
-  #   
+RB_LASSO<-function (x, y, B = 500, alpha = 0.05, nfolds = 5, foldid, \
+                    cv.OLS = FALSE, tau = 0, parallel = FALSE, standardize = TRUE, \
+                    intercept = TRUE, parallel.boot = FALSE, ncores.boot = 1, ...) {
+
   x <- as.matrix(x)
   y <- as.numeric(y)
   n <- dim(x)[1]
@@ -125,7 +116,7 @@ twas<-read.csv(paste0('/data/coxvgi/zhoud2/projects/gtex/asso/LDLq_',model,'_',t
 twas<-twas[twas$pvalue<0.05,] #only run MR for TWAS-significant genes
 gene_list<-intersect(gene_list,twas[,1])
 
-#load ldsc
+#load ldsc (we adjust ldsc in the model)
 ldsc<-read.table('/data/coxvgi/zhoud2/data/gtex/geno/v8/ldsc/gtex_pruned.score.ld',header = T,stringsAsFactors = F)
 ldsc<-ldsc[,c(1,8)]
 
@@ -133,8 +124,7 @@ ldsc<-ldsc[,c(1,8)]
 gene_name_anno<-read.table('/data/coxvgi/zhoud2/anno/gencode/37/gencode.v32.GRCh37.txt',stringsAsFactors = F,header = T)
 gene_name_anno<-gene_name_anno[,c('geneid','genename')]
 
-#built output df
-#output<-data.frame('geneid'=NA,'p_real'=NA,'beta_real'=NA,'lower_real'=NA,'upper_real'=NA,'p_shuffled'=NA,'beta_shuffled'=NA,'lower_shuffled'=NA,'upper_shuffled'=NA)
+#output df
 output<-data.frame('geneid'=NA)
 
 ##for test
@@ -198,10 +188,10 @@ if (i_start<length(gene_list)){
     #skip genes with less than 20 obs (no way for cv)
     if (nrow(df)<20){next}
     
-    #no of sig gwas loci (only consider these for pleiotropy control)
+    #no of sig gwas loci (only consider these snps for heterogeneity control)
     n_gwas<-length(which(df$p_gwas<0.05))
     
-    #identity matrix
+    #creat a identity matrix
     df<-df[order(df$p_gwas),]
     df<-df[,c('rsid','gwas_beta','eqtl_beta','ldscore')] 
     if(n_gwas>0){
@@ -218,13 +208,11 @@ if (i_start<length(gene_list)){
     set.seed(i)
     fit<-try(RB_LASSO(x=x,y=y,intercept = T,standardize = T,nfolds = nf,alpha=0.05))
     if(!('try-error' %in% class(fit))){
-      
       output[i,'p_real']<-fit$pvalue
       output[i,'beta_real']<-fit$beta[1]
       output[i,'lower_real']<-fit$interval[1,1]
       output[i,'upper_real']<-fit$interval[2,1]
     }
-    
     
     #---data shuffling----
     set.seed(i+100)
@@ -239,7 +227,6 @@ if (i_start<length(gene_list)){
       output[i,'lower_shuffled']<-fit$interval[1,1]
       output[i,'upper_shuffled']<-fit$interval[2,1]
     }
-    
   }
   
   #sig or not according to 95%CI
