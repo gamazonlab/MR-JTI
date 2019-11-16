@@ -4,14 +4,13 @@ library(ggplot2)
 tissue_list<-dir('/data/coxvgi/zhoud2/projects/gtex/weights/st/')
 tissue=tissue_list[args]
 
-
-main_path<-'/data/coxvgi/zhoud2/data/biovu/pred_exp_23k/'
+main_path<-'/data/coxvgi/zhoud2/data/biovu/pred_exp_23k/' #BioVU real genotyping data
 out_path<-'/data/coxvgi/zhoud2/projects/gtex/simulation/type1error/'
 simu_times=1000  #test 50 100 1000
 
 #genelist
-gene_list_st<-dir(paste0(main_path,'st/',tissue)) #single-tissue iGenes
-gene_list_ct<-dir(paste0(main_path,'xt/',tissue)) #cross-tissue iGenes
+gene_list_st<-dir(paste0(main_path,'st/',tissue)) #PrediXcan iGenes
+gene_list_ct<-dir(paste0(main_path,'xt/',tissue)) #XT-SCAN iGenes
 gene_list_all<-intersect(gene_list_ct,gene_list_st)
 
 #100 random genes
@@ -96,7 +95,6 @@ for (i in 1:length(gene_list)){
   
 }
 
-
 #--qq plot--
 
 gg_qqplot <- function(df, ci = 0.95,title='ggplot') {
@@ -147,11 +145,10 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
   }
 }
 
-
+#rm '_' in tissue names
 for (i in 1:10){
   tissue<-sub('_',' ',tissue)
 }
-
 
 png(paste0(out_path,'plot/',tissue,'.png'),width = 1000,height = 500)
 par(mfcol=c(1,1))
