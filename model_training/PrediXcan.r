@@ -9,8 +9,8 @@ v8_dir<-'/data/coxvgi/zhoud2/projects/v8/'
 
 run_id<-1
 run_list<-list()
-for (i in c(13,31,49)){ #1:49
-  for (j in 1:50){  #50
+for (i in 1:49){ #tissue id
+  for (j in 1:50){ #subjobs for each tissue
     run_list[[run_id]]<-c(i,j)
     run_id=run_id+1
   }
@@ -19,23 +19,23 @@ for (i in c(13,31,49)){ #1:49
 run_i<-run_list[[args[1]]]
 print(run_i)
 
-folder='st'
+folder='st' #predixcan
 
-#tissue
+#tissue name
 tissue_list<-dir(paste0(main_dir,'exp_residual/'))
 tissue_list<-as.character(sapply(tissue_list,function(x) strsplit(x,"[.]")[[1]][1]))
 tissue<-tissue_list[run_i[1]]
 
-#mkdir
+#mkdir for output
 com<-paste0('mkdir ',v8_dir,'weights_cv/',folder,'/ ; mkdir ',v8_dir,'weights_cv/',folder,'/',tissue)
 system(command = com, wait = T)
 
 #get gene list
-exp_list<-sub('....$','',dir(paste0(main_dir,'exp_v8/',tissue)))
-geno_list<-dir('/data/coxvgi/zhoud2/data/gtex/geno/v8/gene/p_1m/')
+exp_list<-sub('....$','',dir(paste0(main_dir,'exp_v8/',tissue)))  #expression gene list
+geno_list<-dir('/data/coxvgi/zhoud2/data/gtex/geno/v8/gene/p_1m/')  #genotype gene list
 gene_list<-intersect(exp_list,geno_list)
 
-#start_id
+#subjob start and end id
 i_start=(run_i[2]-1)*500+1
 i_end=run_i[2]*500
 if (i_end>length(gene_list)){
@@ -62,21 +62,21 @@ if (i_start<length(gene_list)){
     d<-merge(exp,geno,by='sampleid')
     
     #-------------------
-    if(ncol(d)>5){
-      y<-as.matrix(d[,2]); x<-as.matrix(d[,c(5:ncol(d))])
-      set.seed(as.numeric(sub('^....','',gene_list[i])))
-      #elastic net
-      fit<-cv.glmnet(x=x,y=y, nfolds = 5,keep = T,alpha=0.5,nlambda=50,pmax=200)  
+    if(ncol(d)>5){  #skip genes with only one SNP.
+      y<-as.matrix(d[,2]); x<-as.matrix(d[,c(5:ncol(d))]) #assign x and y
+      set.seed(as.numeric(sub('^....','',gene_list[i]))) #use ensembl id as seed
+      #elastic net model training using 5-fold cv
+      fit<-cv.glmnet(x=x,y=y, nfolds = 5,keep = T,alpha=0.5,nlambda=50,pmax=200) 
       fit.df <- data.frame(fit$cvm,fit$lambda,1:length(fit$cvm))
-      best.lam <- fit.df[which.min(fit.df[,1]),]
+      best.lam <- fit.df[which.min(fit.df[,1]),] #find lambda with min cv error
       nrow.best = best.lam[,3] #position of best lambda in cv.glmnet output
       ret <- as.numeric(fit$glmnet.fit$beta[,nrow.best]) #beta
-      lambda<-as.numeric(fit$lambda.min)
+      lambda<-as.numeric(fit$lambda.min) #lambda
     }else{next}
     
     #correlation of predicted and observed expression
-    pred_exp = fit$fit.preval[,which(fit$lambda == fit$lambda.min)]
-    cor_test_t<-cor.test(y,pred_exp)
+    pred_exp = fit$fit.preval[,which(fit$lambda == fit$lambda.min)] #predicted expression
+    cor_test_t<-cor.test(y,pred_exp)  #correlation test
     r<-as.numeric(cor_test_t$estimate)
     p<-as.numeric(cor_test_t$p.value)
     
@@ -91,7 +91,7 @@ if (i_start<length(gene_list)){
     output<-snp_info
     
     #writeRDS
-    if (nrow(output)>0 & p<0.05 & r>0.1){
+    if (nrow(output)>0 & p<0.05 & r>0.1){ #only output iGene defined as p<0.05 $ r>0.10
       out_path<-paste0(v8_dir,'weights_cv/',folder,'/',tissue,'/',gene_list[i],'.rds')
       saveRDS(output,file=out_path)
     }
@@ -99,27 +99,6 @@ if (i_start<length(gene_list)){
 }else{
   print('out of range')
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
