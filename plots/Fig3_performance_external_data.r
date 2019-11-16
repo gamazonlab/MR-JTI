@@ -1,18 +1,24 @@
 
 tissue='Brain_Frontal_Cortex_BA9'
-tissue='Whole_Blood'  
-
-ut<-read.table(paste0('~/../Dropbox/DansPaper/data/replication/ut_modified_',tissue,'.txt'),header = T,stringsAsFactors = F)
-ut<-ut[,-4]
-colnames(ut)<-c('geneid','r_ut','p_ut')
-
-xt<-read.table(paste0('~/../Dropbox/DansPaper/data/replication/xt_',tissue,'.txt'),header = T,stringsAsFactors = F)
-xt<-xt[,-4]
-colnames(xt)<-c('geneid','r_xt','p_xt')
+#tissue='Whole_Blood'  
 
 st<-read.table(paste0('~/../Dropbox/DansPaper/data/replication/st_',tissue,'.txt'),header = T,stringsAsFactors = F)
 st<-st[,-4]
 colnames(st)<-c('geneid','r_st','p_st')
+length(intersect(which((st$p_st)<0.05),which(st$r_st>0.1)))
+length(intersect(which(p.adjust(st$p_st,method = 'BH')<0.05),which(st$r_st>0.1)))
+
+ut<-read.table(paste0('~/../Dropbox/DansPaper/data/replication/ut_modified_',tissue,'.txt'),header = T,stringsAsFactors = F)
+ut<-ut[,-4]
+colnames(ut)<-c('geneid','r_ut','p_ut')
+length(intersect(which((ut$p_ut)<0.05),which(ut$r_ut>0.1)))
+length(intersect(which(p.adjust(ut$p_ut,method = 'BH')<0.05),which(ut$r_ut>0.1)))
+
+xt<-read.table(paste0('~/../Dropbox/DansPaper/data/replication/xt_',tissue,'.txt'),header = T,stringsAsFactors = F)
+xt<-xt[,-4]
+colnames(xt)<-c('geneid','r_xt','p_xt')
+length(intersect(which((xt$p_xt)<0.05),which(xt$r_xt>0.1)))
+length(intersect(which(p.adjust(xt$p_xt,method = 'BH')<0.05),which(xt$r_xt>0.1)))
 
 df<-merge(ut,xt,by=1,all=T)
 df<-merge(df,st,by=1,all=T)
@@ -74,7 +80,6 @@ xt_fun<-function(a,b){  #a=st
   }
 }
 
-
 iG_r_st<- df[df$iG_r_st==1,1]
 iG_r_ut<- df[df$iG_r_ut==1,1]
 iG_r_xt<- df[df$iG_r_xt==1,1]
@@ -82,7 +87,6 @@ iG_r_xt<- df[df$iG_r_xt==1,1]
 iG_r2_st<- df[df$iG_r2_st==1,1]
 iG_r2_ut<- df[df$iG_r2_ut==1,1]
 iG_r2_xt<- df[df$iG_r2_xt==1,1]
-
 
 
 #plot
@@ -130,16 +134,10 @@ segments(-1,-1,1,1,col = 'red',lty=2)
 
 dev.off()
 
-
 venn.diagram(x= list('PrediXcan' = iG_r_st,'UTMOST' = iG_r_ut,'XT-SCAN' = iG_r_xt), filename = paste0('~/../Dropbox/DansPaper/figures/tmp/rep_',tissue,'_venn.png'), height = 800, width = 800,,resolution =250, imagetype="png", col="transparent",fill=brewer.pal(12, "Paired")[c(7,1,3)], lwd=0.6, cex=1.5, cat.cex=0.8)
 
 
-
-
-
-
 #vio plot
-
 
 png(paste0('~/../Dropbox/DansPaper/figures/tmp/rep_vio_',tissue,'.png'),width = 500,height = 800,res=150)
 vioplot(df$r_st,df$r_ut,df$r_xt,names = c('PrediXcan','UTMOST','XT-SCAN'),col = brewer.pal(12, "Paired")[c(8,2,4)],cex.axis = 1,las=2,ylim=c(0,1),ylab='Pred and Obs correlation r',bty='l',main=tissue)
