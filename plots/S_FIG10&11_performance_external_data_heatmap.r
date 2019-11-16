@@ -1,4 +1,6 @@
 
+
+
 options(stringsAsFactors = F)
 
 library(RSQLite)
@@ -92,11 +94,6 @@ dev.off()
 
 
 
-
-
-
-
-
 #---UTMOST---modified---Whole_Blood
 
 tissue='Whole_Blood'
@@ -183,15 +180,6 @@ dev.off()
 
 
 
-
-
-
-
-
-
-
-
-
 #---PrediXcan---Whole_Blood
 
 tissue='Whole_Blood'
@@ -229,9 +217,6 @@ segments(-1,0.1,0.1,0.1,col='forestgreen',lty=2)
 segments(0.1,0.1,0.1,-1,col='forestgreen',lty=2)
 
 dev.off()
-
-
-
 
 
 #---PrediXcan---Brain_Frontal_Cortex_BA9
@@ -278,16 +263,6 @@ dev.off()
 
 
 
-
-
-
-
-
-
-
-
-
-
 #---XT-SCAN---Whole_Blood
 
 tissue='Whole_Blood'
@@ -325,9 +300,6 @@ segments(-1,0.1,0.1,0.1,col='forestgreen',lty=2)
 segments(0.1,0.1,0.1,-1,col='forestgreen',lty=2)
 
 dev.off()
-
-
-
 
 
 #---XT-SCAN---Brain_Frontal_Cortex_BA9
