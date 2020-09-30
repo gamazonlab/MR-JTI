@@ -1,0 +1,18 @@
+Filename format
+${trait}_${model}_${tissue}.csv
+'st' and 'xt' denote 'PrediXcan' and 'JTI', respectively.
+
+Source of the GWAS summary statistics
+source	trait	N_samples(case/control)	tissue	GWAS_summary_result_URL
+PGC BIP2018	BIP	dis:20,352/31,358 rep:9,412/137,760	Brain_Frontal_Cortex_BA9	http://pgcdata.med.unc.edu/bipolar_disorder/daner_PGC_BIP32b_mds7a_0416a.gz
+CLOZUK+PGC2	SCZ	40,675/64,643	Brain_Frontal_Cortex_BA9	https://walters.psycm.cf.ac.uk/clozuk_pgc2.meta.sumstats.txt.gz
+UKBB(30740_irnt)	glucose (quantile)	314916	Adipose_Visceral_Omentum	https://www.dropbox.com/s/d16kjpukj1qmg6e/30740_irnt.gwas.imputed_v3.both_sexes.tsv.bgz?dl=0 -O 30740_irnt.gwas.imputed_v3.both_sexes.tsv.bgz
+UKBB(30740_irnt)	glucose (quantile)	314916	Liver	https://www.dropbox.com/s/d16kjpukj1qmg6e/30740_irnt.gwas.imputed_v3.both_sexes.tsv.bgz?dl=0 -O 30740_irnt.gwas.imputed_v3.both_sexes.tsv.bgz
+UKBB(30740_irnt)	glucose (quantile)	314916	Muscle_Skeletal	https://www.dropbox.com/s/d16kjpukj1qmg6e/30740_irnt.gwas.imputed_v3.both_sexes.tsv.bgz?dl=0 -O 30740_irnt.gwas.imputed_v3.both_sexes.tsv.bgz
+UKBB(30740_irnt)	glucose (quantile)	314916	Pancreas	https://www.dropbox.com/s/d16kjpukj1qmg6e/30740_irnt.gwas.imputed_v3.both_sexes.tsv.bgz?dl=0 -O 30740_irnt.gwas.imputed_v3.both_sexes.tsv.bgz
+UKBB(30760_irnt)	HDL (quantile)	315133	Liver	https://www.dropbox.com/s/65jisgxwbbdrkaw/30760_irnt.gwas.imputed_v3.both_sexes.tsv.bgz?dl=0 -O 30760_irnt.gwas.imputed_v3.both_sexes.tsv.bgz
+UKBB(30780_irnt)	LDL (quantile)	343621	Liver	https://www.dropbox.com/s/4rnjzczwjgs5pgl/30780_irnt.gwas.imputed_v3.both_sexes.tsv.bgz?dl=0 -O 30780_irnt.gwas.imputed_v3.both_sexes.tsv.bgz
+UKBB(30890_irnt)	Vitamin D (quantile)	329247	skin	https://www.dropbox.com/s/bbbnj239w1kjkyi/30890_irnt.gwas.imputed_v3.both_sexes.tsv.bgz?dl=0 -O 30890_irnt.gwas.imputed_v3.both_sexes.tsv.bgz
+UKBB(30710_irnt)	C-reactive protein (quantile)	343524	WB	https://www.dropbox.com/s/4o9qs1s6jkrzrq7/30710_irnt.gwas.imputed_v3.both_sexes.tsv.bgz?dl=0 -O 30710_irnt.gwas.imputed_v3.both_sexes.tsv.bgz
+UKBB(30700_irnt)	Creatinine (quantile)	344104	kidney	https://www.dropbox.com/s/n6xdh0149u0yoy0/30700_irnt.gwas.imputed_v3.both_sexes.tsv.bgz?dl=0 -O 30700_irnt.gwas.imputed_v3.both_sexes.tsv.bgz
+
