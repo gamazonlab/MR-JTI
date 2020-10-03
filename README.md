@@ -68,8 +68,8 @@ p:  cross-validation p-value. The significance of the correlation test (correlat
 lambda: The final hyperparameter.  
 
 
-## Pre-trained prediction models (in GTEx v8) are available. 
-For summary-statistics-based analysis, SNP-SNP covariance matrices are also provided. Three models are provided here.
+## Pre-trained prediction models
+For summary-statistics-based analysis, SNP-SNP covariance matrices are also provided. Three prediction models (in GTEx v8) are provided here.
 
 PrediXcan: 
 Using elastic net, five-fold cross-validation was performed to determine the optimal hyper-parameter (lambda) with minimal cross-validation error. The prediction performance was evaluated using the Pearson’s correlation between the predicted expression (the same lambda but from five different models trained from five folds) and the observed expression. Here, we defined an ‘imputable’ gene as one with Pearson’s correlation r > 0.1 and P < 0.05 (see Online Methods and Supplementary Figure 3 of the paper). This choice of threshold considers not just the significance but a reasonable magnitude of the proportion of variance explained (PVE) by genetic variants. We filtered out genes with a negative correlation between the predicted and observed expression level (in contrast to the PrediXcan definition based on r<sup>2</sup>).  
