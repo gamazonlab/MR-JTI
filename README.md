@@ -9,8 +9,8 @@ To run JTI only, the R packages 'glmnet' and 'optparse' will be needed.
 To run MR-JTI, the R packages 'glmnet', 'optparse', and 'HDCI' will be needed.  
 
 ## JTI TUTORIAL
-
-+ Training (You can also skip this step and directly download the pre-trained models.)  
+### Training 
+(You can also skip this step and directly download the pre-trained models.)  
 
 Input file format:  
 1. Genotype files  
@@ -67,13 +67,28 @@ r2: cross-validation r2. The square of the correlation between the predicted and
 p:  cross-validation p-value. The significance of the correlation test (correlation between the predicted and observed expression levels)  
 lambda: The final hyperparameter.  
 
-+ Pretrained prediction models (GTEx v8) are available. For summary-stat-based analysis, SNP-SNP covariance matrices are also provided.
 
+## Pre-trained prediction models (in GTEx v8) are available. 
+For summary-statistics-based analysis, SNP-SNP covariance matrices are also provided. Three models are provided here.
 
-+ GWAS summary statistic based TWAS  
+PrediXcan: 
+Using elastic net, five-fold cross-validation was performed to determine the optimal hyper-parameter (lambda) with minimal cross-validation error. The prediction performance was evaluated using the Pearson’s correlation between the predicted expression (the same lambda but from five different models trained from five folds) and the observed expression. Here, we defined an ‘imputable’ gene as one with Pearson’s correlation r > 0.1 and P < 0.05 (see Online Methods and Supplementary Figure 3 of the paper). This choice of threshold considers not just the significance but a reasonable magnitude of the proportion of variance explained (PVE) by genetic variants. We filtered out genes with a negative correlation between the predicted and observed expression level (in contrast to the PrediXcan definition based on r2).
+Reference: Gamazon, Eric R., et al. "A gene-based association method for mapping traits using reference transcriptome data." Nature Genetics 47.9 (2015): 1091.(https://www.nature.com/articles/ng.3367)
+
+UTMOST:
+Using a sparse group-LASSO, Cross Tissue gene expression IMPutation (CTIMP, the model training part of the UTMOST framework) borrows information across tissues and significantly increases the prediction accuracy compared to the conventional PrediXcan. In the original version of UTMOST, fold-specific hyper-parameters were used. An imputable gene, which is used for downstream analysis, was defined by PFDR < 0.05 from the correlation test between the predicted and observed expression. Importantly, the original UTMOST used the re-trained model (in the entire dataset) to generate the predicted expression. This implies that the estimation of both the p-value and the correlation r may be inflated. The FDR correction does not fix the problem of inflated correlation.
+In order to facilitate model evaluation and comparison of the different approaches, we proposed a modification of the model training of UTMOST  . Briefly, we used uniform hyper-parameters across different folds to make the hyper-parameters directly comparable. This modification provided an approximately unbiased estimate of prediction performance (as we confirmed in external test datasets), facilitating comparison with PrediXcan. Actually, UTMOST did provide a valid way for model evaluation (using the test sets). However, since the lambdas are not consistent across the different folds, the predicted expression in the test sets cannot be pooled to give an overall estimate of performance. As a result, the performance has to be estimated in each of the test sets which has only 20% (given the 5 folds) of the samples. Although the prediction performance is not inflated using this approach, the point estimate in the test set will not be very precise because of the substantially reduced sample size. Anyway, the original UTMOST did not use the evaluation in the test set to define a ‘heritable gene’ (i.e., an imputable gene) for downstream analysis. Instead, the original UTMOST used the re-trained model to define a heritable gene.  
+Here we provide the pre-trained prediction models for imputable genes (same definition and consistent evaluation as the conventional PrediXcan) using our modification to UTMOST. In order to maximize the model accuracy, we also retained the model in the final step with all samples using optimized hyper-parameters. But the performance evaluation was performed in the cross-validation step. i.e., not in the retrained step.
+Reference: Hu, Yiming, et al. "A statistical framework for cross-tissue transcriptome-wide association analysis." Nature genetics 51.3 (2019): 568-576.(https://www.nature.com/articles/s41588-019-0345-7)
+
+JTI:
+Joint-tissue imputation (JTI) borrows information across tissues to improve the prediction quality by leveraging expression and epigenetic (chromatin accessibility) similarity across different tissues / cell-types. The hyper-parameter tuning provides the flexibility to reduce to the conventional PrediXcan when the expression and regulatory profile in the target tissue is unique (with little to borrow from the other tissues). In contrast to UTMOST, which treats all tissues equivalently and does not leverage the tissue similarity, JTI seeks to exploit this similarity for improved prediction. The pre-trained JTI models are provided for imputable genes (same definition and consistent evaluation as the conventional PrediXcan).
+Reference: Zhou, Dan, et al. "A unified framework for joint-tissue transcriptome-wide association and Mendelian randomization analysis." Nature genetics (2020). (https://www.nature.com/articles/s41588-020-0706-2)
+
+### GWAS summary statistic based TWAS  
 For convenience, we redirect you to the S-PrediXcan (https://github.com/hakyimlab/MetaXcan/blob/master/software/SPrediXcan.py), which has been developed to perform PrediXcan using summary statistics (Barbeira, Alvaro N., et al. "Exploring the phenotypic consequences of tissue specific gene expression variation inferred from GWAS summary statistics." Nature communications 9.1 (2018): 1-20).  
 
-# MR-JTI TUTORIAL
+## MR-JTI TUTORIAL
 
 Input file format  
 The input file contains six elements, as listed below. (The headers are required.) 
