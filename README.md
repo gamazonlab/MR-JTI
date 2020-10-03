@@ -135,4 +135,4 @@ CI_significance:  Significant if the CI does not overlap the null hypothesis (i.
 
 
 ## Cite MR-JTI
-Zhou, Dan, et al. "A unified framework for joint-tissue transcriptome-wide association and Mendelian randomization analysis." Nature genetics (2020). (https://www.nature.com/articles/s41588-020-0706-2)
+Zhou, Dan, et al. "A unified framework for joint-tissue transcriptome-wide association and Mendelian randomization analysis." Nature Genetics (2020). (https://www.nature.com/articles/s41588-020-0706-2)
