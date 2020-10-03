@@ -134,3 +134,5 @@ beta_CI_upper:  Bonferroni adjusted CI, upper
 CI_significance:  Significant if the CI does not overlap the null hypothesis (i.e. 0).  
 
 
+## Cite MR-JTI
+Zhou, Dan, et al. "A unified framework for joint-tissue transcriptome-wide association and Mendelian randomization analysis." Nature genetics (2020). (https://www.nature.com/articles/s41588-020-0706-2)
