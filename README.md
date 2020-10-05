@@ -86,9 +86,9 @@ Joint-tissue imputation (JTI) borrows information across tissues to improve the 
 Reference: Zhou, Dan, et al. "A unified framework for joint-tissue transcriptome-wide association and Mendelian randomization analysis." Nature Genetics (2020). (https://www.nature.com/articles/s41588-020-0706-2)
 
 ### GWAS summary statistic based TWAS  
-For convenience, we redirect you to S-PrediXcan, which has been developed to perform PrediXcan using summary statistics.  
+For convenience, we redirect you to S-PrediXcan (https://github.com/hakyimlab/MetaXcan/blob/master/software/SPrediXcan.py), which has been developed to perform PrediXcan using summary statistics.  
 Reference: Barbeira, Alvaro N., et al. "Exploring the phenotypic consequences of tissue specific gene expression variation inferred from GWAS summary statistics." Nature communications 9.1 (2018): 1-20.
-(https://github.com/hakyimlab/MetaXcan/blob/master/software/SPrediXcan.py)  
+(https://www.nature.com/articles/s41467-018-03621-1) 
 
 ## MR-JTI TUTORIAL
 
