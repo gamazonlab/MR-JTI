@@ -4,12 +4,12 @@ For questions:
 Dan Zhou <zdangm@gmail.com>  
 Eric R. Gamazon <ericgamazon@gmail.com>  
 
+## Cite MR-JTI
+Zhou, Dan, et al. "A unified framework for joint-tissue transcriptome-wide association and Mendelian randomization analysis." Nature Genetics (2020). (https://www.nature.com/articles/s41588-020-0706-2)  
+
 ## PREREQUISITES
 To run JTI only, the R packages 'glmnet' and 'optparse' will be needed.  
 To run MR-JTI, the R packages 'glmnet', 'optparse', and 'HDCI' will be needed.  
-
-## Cite MR-JTI
-Zhou, Dan, et al. "A unified framework for joint-tissue transcriptome-wide association and Mendelian randomization analysis." Nature Genetics (2020). (https://www.nature.com/articles/s41588-020-0706-2)  
 
 ## JTI TUTORIAL
 ### Training 
