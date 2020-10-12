@@ -86,7 +86,7 @@ Joint-tissue imputation (JTI) borrows information across tissues to improve the 
 Reference: Zhou, Dan, et al. "A unified framework for joint-tissue transcriptome-wide association and Mendelian randomization analysis." Nature Genetics (2020). (https://www.nature.com/articles/s41588-020-0706-2)
 
 Download links to all 3 classes of models using GTEx v8 as reference can be found in the Zhou et al. paper.  
-GTEx models are available for download from Zenodo (https://doi.org/10.5281/zenodo.3842289). 
+GTEx models are also available for download from Zenodo (https://doi.org/10.5281/zenodo.3842289). 
 The PsychENCODE (https://doi.org/10.5281/zenodo.3859065) and GEUVADIS (https://doi.org/10.5281/zenodo.3859075) models have also been deposited.
 
 ### GWAS summary statistic based TWAS  
