@@ -8,6 +8,9 @@ Eric R. Gamazon <ericgamazon@gmail.com>
 To run JTI only, the R packages 'glmnet' and 'optparse' will be needed.  
 To run MR-JTI, the R packages 'glmnet', 'optparse', and 'HDCI' will be needed.  
 
+## Cite MR-JTI
+Zhou, Dan, et al. "A unified framework for joint-tissue transcriptome-wide association and Mendelian randomization analysis." Nature Genetics (2020). (https://www.nature.com/articles/s41588-020-0706-2)  
+
 ## JTI TUTORIAL
 ### Training 
 (You can also skip this step and directly download the pre-trained models.)  
@@ -140,7 +143,3 @@ beta: Point estimate of the effect size
 beta_CI_lower:  Bonferroni adjusted confidence interval (CI), lower  
 beta_CI_upper:  Bonferroni adjusted CI, upper  
 CI_significance:  Significant if the CI does not overlap the null hypothesis (i.e. 0).  
-
-
-## Cite MR-JTI
-Zhou, Dan, et al. "A unified framework for joint-tissue transcriptome-wide association and Mendelian randomization analysis." Nature Genetics (2020). (https://www.nature.com/articles/s41588-020-0706-2)
