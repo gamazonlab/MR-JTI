@@ -85,6 +85,8 @@ JTI:
 Joint-tissue imputation (JTI) borrows information across tissues to improve the prediction quality by leveraging expression and epigenetic (e.g., chromatin accessibility) similarity across different tissues / cell-types. The hyper-parameter tuning provides the flexibility to reduce to the conventional PrediXcan when the expression and regulatory profile in the target tissue is unique (with little to borrow from the other tissues). In contrast to UTMOST, which treats all tissues equivalently and does not leverage the tissue similarity, JTI seeks to exploit this similarity for improved prediction. The pre-trained JTI models are provided for imputable genes (same definition and consistent evaluation as the conventional PrediXcan).  
 Reference: Zhou, Dan, et al. "A unified framework for joint-tissue transcriptome-wide association and Mendelian randomization analysis." Nature Genetics (2020). (https://www.nature.com/articles/s41588-020-0706-2)
 
+## Download prediction models
+
 Download links to all 3 classes of models using GTEx v8 as reference can be found in the Zhou et al. paper.  
 GTEx models are also available for download from Zenodo (https://doi.org/10.5281/zenodo.3842289). 
 The PsychENCODE (https://doi.org/10.5281/zenodo.3859065) and GEUVADIS (https://doi.org/10.5281/zenodo.3859075) models have also been deposited.
