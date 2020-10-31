@@ -1,5 +1,7 @@
 ## MR-JTI
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4164740.svg)](https://doi.org/10.5281/zenodo.4164740)
+
 For questions:  
 Dan Zhou <zdangm@gmail.com>  
 Eric R. Gamazon <ericgamazon@gmail.com>  
