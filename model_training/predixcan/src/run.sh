@@ -14,11 +14,10 @@
 #        --subjob_id ${SLURM_ARRAY_TASK_ID} \
 #        --n_genes_for_each_subjob 100 \
 #        --annotation_file_name ${main_dir}/chr22/gencode.v32.GRCh37.txt
-
+# If a '--parallel' flag is added, max(n-1,1) core(s) will be used for parallel model training, where n is the number of available cores.
 
 #step 2. generate .db and .cov file
 #ml GCC OpenMPI R
-
 #model_name=chr22 #the predix of output files
 #Rscript ${main_dir}/src/predixcan_r.r \
 #         --generate_db_and_cov \
@@ -44,7 +43,9 @@
 #         --gwas_ref_allele_col ref_allele \
 #         --asso_out_path ${dir}/result_ldl_liver.txt \
 #         --parallel
-
+# If a '--parallel' flag is added, max(n-1,1) core(s) will be used for parallel association test, where n is the number of available cores.
+# To specify the colname for the point estimate of GWAS effect size, use either "--gwas_or_col" or "gwas_beta_col"
+# Use "--gwas_se_col" or "--gwas_p_col" to provide either the se(beta) or the p-value of beta.
 
 #Option 2
 #ml GCC/5.4.0-2.26  OpenMPI/1.10.3 pandas/0.18.1-Python-2.7.12 numpy/1.11.1-Python-2.7.12 scipy/0.17.0-Python-2.7.12
