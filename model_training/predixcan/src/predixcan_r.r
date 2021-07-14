@@ -48,7 +48,6 @@ option_list = list(
               help="Path to a file to specify a list of geneids need to run."),
   make_option("--asso_out_path", action="store", default=NA, type='character',
               help="Path to result file [required]"),
-  
   make_option("--gwas_variant_col", action="store", default=NA, type='character',
               help="column name of gwas variant id [required]"),
   make_option("--gwas_beta_col", action="store", default=NA, type='character',
@@ -64,7 +63,6 @@ option_list = list(
   make_option("--gwas_ref_allele_col", action="store", default=NA, type='character',
               help="column name of gwas reference allele [required]")
   
-
 )
 
 
