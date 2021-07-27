@@ -1,5 +1,5 @@
 
-cat('-----PrediXcan-R----- \n-----2021-07-14---- \n')
+cat('-----PrediXcan-R----- \n-----2021-07-27---- \n')
 
 library(optparse)
 library(glmnet)
@@ -48,6 +48,7 @@ option_list = list(
               help="Path to a file to specify a list of geneids need to run."),
   make_option("--asso_out_path", action="store", default=NA, type='character',
               help="Path to result file [required]"),
+  
   make_option("--gwas_variant_col", action="store", default=NA, type='character',
               help="column name of gwas variant id [required]"),
   make_option("--gwas_beta_col", action="store", default=NA, type='character',
@@ -55,14 +56,17 @@ option_list = list(
   make_option("--gwas_or_col", action="store", default=NA, type='character',
               help="column name of gwas OR [required, if beta is not provided]"),
   make_option("--gwas_se_col", action="store", default=NA, type='character',
-              help="column name of gwas se(beta) [required, if pvalue is not provided]"),
+              help="column name of gwas se(beta) [one the three (se, pvalue, and zscore) is required]"),
+  make_option("--gwas_zscore_col", action="store", default=NA, type='character',
+              help="column name of gwas zscore [one the three (se, pvalue, and zscore) is required]"),
   make_option("--gwas_p_col", action="store", default=NA, type='character',
-              help="column name of gwas pval [required, if se is not provided]"),
+              help="column name of gwas pval [one the three (se, pvalue, and zscore) is required]"),
   make_option("--gwas_eff_allele_col", action="store", default=NA, type='character',
               help="column name of gwas effect allele [required]"),
   make_option("--gwas_ref_allele_col", action="store", default=NA, type='character',
               help="column name of gwas reference allele [required]")
   
+
 )
 
 
@@ -485,6 +489,7 @@ if(opt$asso_test){
   gwas_or_col = opt$gwas_or_col
   gwas_se_col = opt$gwas_se_col
   gwas_p_col = opt$gwas_p_col
+  gwas_zscore_col = opt$gwas_zscore_col
   gwas_eff_allele_col = opt$gwas_eff_allele_col
   gwas_ref_allele_col = opt$gwas_ref_allele_col
   gene_list_path = opt$gene_list_path_for_asso_test
@@ -504,17 +509,24 @@ if(opt$asso_test){
   
   cat('INFO loading GWAS results ...\n')
   gwas <- data.frame(fread(gwas_path))
-  
+
   #convert beta, or, se, pval
   gwas <- gwas[!duplicated(gwas[,gwas_variant_col]),]
   if(is.na(gwas_beta_col)){
     gwas$beta = log(gwas[,gwas_or_col],2.718)
     gwas_beta_col = 'beta'
   }
+  
   if(is.na(gwas_se_col)){
-    gwas$z_score = qnorm(1-gwas_p_col/2)
-    gwas$se = gwas[,gwas_beta_col] / gwas[,'z_score']
-    gwas_se_col = 'se'
+    if(is.na(gwas_zscore_col)){
+      gwas$z_score = qnorm(1-gwas[,gwas_p_col]/2)
+      gwas$se = abs(gwas[,gwas_beta_col] / gwas[,'z_score'])
+      gwas_se_col = 'se'
+      
+    }else{
+      gwas$se = gwas[,gwas_beta_col] / gwas[,gwas_zscore_col]
+      gwas_se_col = 'se'
+    }
   }
   
   #get the list of snps both available from gwas and prediction model
