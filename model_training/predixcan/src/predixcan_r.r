@@ -438,7 +438,7 @@ asso<-function(gene_id){
   effect_size = sum(df$weight * df[,gwas_beta_col] * diag(cov_matrix) / var_GReX)
   
   #z-score
-  zscore = sum(df$weight * sqrt(diag(cov_matrix)) * df[,gwas_beta_col] / sqrt(var_GReX) / df[,gwas_se_col])
+  zscore = sum(df$weight * sqrt(diag(cov_matrix)) * df[,gwas_beta_col] / sqrt(var_GReX) / df[,gwas_se_col], na.rm = T)
   ans = list()
   ans[['effect_size']] = effect_size
   ans[['zscore']] = zscore
