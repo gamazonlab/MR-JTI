@@ -589,7 +589,7 @@ if(opt$asso_test){
   result = as.data.frame(result, stringsAsFactors = F)
   result$gene = gene_list
   result$pvalue = (1-pnorm(abs(result$zscore)))*2  #two sided
-  
+  result = result[which(result$effect_size * result$zscore>0),]
   result = merge(result, extra_info, by='gene')
   
   result = result[,c('gene','genename','zscore','effect_size','pvalue','pred.perf.R2','pred.perf.pval','n_snps_used','n.snps.in.model')]
