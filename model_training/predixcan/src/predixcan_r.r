@@ -529,6 +529,10 @@ if(opt$asso_test){
     }
   }
   
+  #upper allele
+  gwas[,gwas_eff_allele_col] = toupper(gwas[,gwas_eff_allele_col])
+  gwas[,gwas_ref_allele_col] = toupper(gwas[,gwas_ref_allele_col])
+  
   #get the list of snps both available from gwas and prediction model
   weights <- merge(weights, gwas, by.x = 'rsid', by.y = gwas_variant_col)
   
