@@ -220,6 +220,7 @@ each_gene<-function(main_dir,plink_file_name,chr,pos_l,pos_r,geneid,exp){
     #run elastic net
     y<-as.matrix(df[,2])
     x<-as.matrix(df[,c(3:ncol(df))])
+    x = apply(x, MARGIN = 2, function(x) ifelse(is.na(x), median(x,na.rm = T), x)) #post imputation imputation
     rm(df)
     
     #skip genes with only one SNP
