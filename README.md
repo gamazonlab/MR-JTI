@@ -96,13 +96,15 @@ GTEx models are also available for download from Zenodo (https://doi.org/10.5281
 The PsychENCODE (https://doi.org/10.5281/zenodo.3859065) and GEUVADIS (https://doi.org/10.5281/zenodo.3859075) models have also been deposited.
 
 ### GWAS summary statistic based TWAS  
-S-PrediXcan (https://github.com/hakyimlab/MetaXcan/blob/master/software/SPrediXcan.py) has been developed to perform PrediXcan using summary statistics. It can be used to perform JTI or UTMOST analysis of GWAS summary statistics data to generate TWAS results, using the pre-trained prediction models described above. 
-
+Using the pre-trained prediction models described above, summary-stat-based association test can be performed.
+Option 1:
 An example for the association test can be found here.
-Note. PrediXcan and JTI share the script for the summary-stat-based association test.
-https://github.com/gamazonlab/MR-JTI/blob/master/model_training/predixcan/src/run.sh  (lines 31-63)
+https://github.com/gamazonlab/MR-JTI/blob/master/model_training/predixcan/src/run.sh  (lines 31-48)
 https://github.com/gamazonlab/MR-JTI/blob/master/model_training/predixcan/src/predixcan_r.r
+Note. PrediXcan and JTI share the script for the summary-stat-based association test.
 
+Option 2:
+S-PrediXcan (https://github.com/hakyimlab/MetaXcan/blob/master/software/SPrediXcan.py) has been developed to perform PrediXcan using summary statistics. 
 Reference for S-PrediXcan: Barbeira, Alvaro N., et al. "Exploring the phenotypic consequences of tissue specific gene expression variation inferred from GWAS summary statistics." Nature communications 9.1 (2018): 1-20.  
 (https://www.nature.com/articles/s41467-018-03621-1) 
 
