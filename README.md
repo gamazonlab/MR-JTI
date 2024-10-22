@@ -95,7 +95,7 @@ Download links to all 3 classes of models using GTEx v8 as reference can be foun
 GTEx models are also available for download from Zenodo (https://doi.org/10.5281/zenodo.3842289). 
 The PsychENCODE (https://doi.org/10.5281/zenodo.3859065) and GEUVADIS (https://doi.org/10.5281/zenodo.3859075) models have also been deposited.
 
-### GWAS summary statistic based TWAS  
+### GWAS summary statistic-based TWAS  
 Using the pre-trained prediction models described above, summary-stat-based association test can be performed.  
 Option 1:   
 An example for the association test can be found here.   
@@ -124,6 +124,8 @@ eqtl_p: eQTL p-value  (required)
 gwas_beta: GWAS effect size  (required)  
 gwas_p: GWAS p-value  (required)  
 
+The full GTEx eQTL summary statistics can be downloaded from Yang Lab (many thanks). https://yanglab.westlake.edu.cn/data/SMR/GTEx_V8_cis_eqtl_summary.html
+
 A typical run
 ```
 script_dir='/replace_with_script_dir'  
@@ -144,7 +146,9 @@ Options for JTI model training
 --n_bootstrap  Number of resampling times for bootstrap. Default=500. #we used B=100 for our specific dataset, the default (recommended by Efron) is more general.
 --n_genes Total number of genes tested (Bonferroni correction will be applied). n_genes=1 denotes user requires only nominal significance level (i.e., p<0.05 will be considered as significant). 
 --weighted Weighted by inverse variance. Default=F
---out_path Output path.  (required)  
+--out_path Output path.  (required)
+
+
 ```
 
 Results format
