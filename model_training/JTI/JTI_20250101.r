@@ -219,7 +219,7 @@ if (p_test<0.05 & r_test>0.1){
   snp_info$p<-p_test
   snp_info$lambda<-r_matrix[best_row,'lambda']
   snp_info$weight<-beta_list[[best_row]]
-  snp_info<-snp_info[,c(5,1:4,9,6:8)]
+  snp_info<-snp_info[,c("gene", "rsid", "chr_bp", "ref_allele", "counted_allele", "weight", "r2", "p", "lambda")]
   weight_file<-snp_info[snp_info$weight!=0,]
   if (nrow(weight_file)>0){
     write.table(weight_file,paste0(out_path,'/',geneid,'_',tissue,'.txt'),quote = F,row.names = F,sep = '\t')
